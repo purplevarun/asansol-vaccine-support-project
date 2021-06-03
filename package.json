@@ -1,0 +1,17 @@
+{
+  "name": "vaccine-center-promject",
+  "version": "1.0.0",
+  "description": "Find Vaccines Near You..",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "Varun Kedia",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "mysql": "^2.18.1"
+  }
+}
