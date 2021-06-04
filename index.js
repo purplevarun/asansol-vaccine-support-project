@@ -81,6 +81,10 @@ app.get ('/welcome', (req,res) => {
     }
     else {
         res.render('welcome',{'info':current_user[0]});
-        current_user=-1;
+        current_user=-1; // comment out during development
     }
+});
+app.post ('/register',(req,res) => {
+    var info = req.body;
+    console.log(info);
 });

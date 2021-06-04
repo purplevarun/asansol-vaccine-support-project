@@ -13,8 +13,9 @@
     		font-size: 25px;
     		vertical-align: middle;
     	}
-    	*{
+    	*,body{
     		text-align : center;
+        /*background: red;*/
     	}
     	button {
     		background-color : lightblue;
@@ -29,15 +30,23 @@
     		border : none;
     		background: none;
     		font-size : 12px;
-    		text-align: center;
+    		/*text-align: center;*/
     		border: 1px solid black;
-    		padding: 0px;
-    		margin-top: 2px;
+    		/*padding: 0px;*/
+    		/*margin-top: 2px;*/  
         border-radius: 999px;
     	}
     	.pass {
 
     	}
+      form {
+        text-align: center;
+      }
+      .container{
+        display: flex;
+        justify-content: center;
+        align-items: center; 
+      }
     </style>
     <script>
     	window.onload = () => {
@@ -61,7 +70,7 @@
     	<p style="font-size:40px;font-family:helvetica;">Register Page</p>
     	<div style="height:50px"></div>
     	<h2>Enter Email ID :</h2>
-    	<input type="email" name="username" class="ipbox">
+    	<input type="email" name="email" class="ipbox">
     	<p></p>
     	<h2>Enter User Name :</h2>
     	<input type="text" name="username" class="ipbox">
@@ -69,7 +78,7 @@
     	<h2>Enter Password :</h2>
     	<input type="password" name="password" class="ipbox pass">
     	<p></p>
-    	<button id="showpass">Show</button>
+    	<div class="container"><div id="showpass">Show</div></div>
     	<p></p>
     	<button type="submit">Register!</button>
     	<div style="height:100px"></div>
