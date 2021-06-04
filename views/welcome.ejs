@@ -5,22 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
-    <script>
-    	
-    </script>
+    <title>Register Page</title>
+    <style type="text/css">
+    	.ipbox {
+    		width : 400px;
+    		border : 3px groove black;
+    		font-size: 30px;
+    	}
+    	*{
+    		text-align : center;
+    	}
+    	button {
+    		background-color : lightblue;
+    		border : 3px groove black;
+    		font-size : 20px;
+    	}
+    	.msg {
+    		color : red;
+    	}
+    </style>
   </head>
   <body>
-    <h1>Hello, world!</h1>
-    <h1>
-    	<%=info['email']%>
-    </h1>
-    <h1>
-    	<%=info['username']%>
-    </h1>
-    <h1>
-    	<%=info['password']%>
-    </h1>
+    <form method='POST' action='/register'>
+    	<p style="font-size:40px;font-family:helvetica;">Login Page</p>
+    	<div style="height:50px"></div>
+    	<h2>Enter User Name :</h2>
+    	<input type="text" name="username" class="ipbox">
+    	<p></p>
+    	<h2>Enter Password :</h2>
+    	<input type="password" name="password" class="ipbox">
+    	<p></p>
+    	<button type="submit">Login!</button>
+    	<div style="height:100px"></div>
+    	<p class="msg">
+        <%=msg%>
+      </p>
+    </form>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
   </body>
 </html>

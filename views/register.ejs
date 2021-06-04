@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <title>Register Page</title>
+    <style type="text/css">
+    	.ipbox {
+    		width : 320px;
+    		border : 3px groove black;
+    		font-size: 25px;
+    		vertical-align: middle;
+    	}
+    	*{
+    		text-align : center;
+    	}
+    	button {
+    		background-color : lightblue;
+    		border : 3px groove black;
+    		font-size : 20px;
+    	}
+    	.msg {
+    		color : red;
+    	}
+    	#showpass {
+    		width : 65px;
+    		border : none;
+    		background: none;
+    		font-size : 12px;
+    		text-align: center;
+    		border: 1px solid black;
+    		padding: 0px;
+    		margin-top: 2px;
+    	}
+    	.pass {
+
+    	}
+    </style>
+    <script>
+    	window.onload = () => {
+    		document.getElementById("showpass").onclick = (e) => {
+    			e.preventDefault();
+    			var passip = document.querySelector(".pass");
+    			if (passip.type == 'password'){
+    				passip.type = 'text';
+    				document.querySelector("#showpass").innerHTML = "Hide";
+    			}
+    			else {
+    				passip.type = 'password';
+    				document.querySelector("#showpass").innerHTML = "Show";
+    			}
+    		}
+    	}
+    </script>
+  </head>
+  <body>
+    <form method='POST' action='/register'>
+    	<p style="font-size:40px;font-family:helvetica;">Register Page</p>
+    	<div style="height:50px"></div>
+    	<h2>Enter Email ID :</h2>
+    	<input type="email" name="username" class="ipbox">
+    	<p></p>
+    	<h2>Enter User Name :</h2>
+    	<input type="text" name="username" class="ipbox">
+    	<p></p>
+    	<h2>Enter Password :</h2>
+    	<input type="password" name="password" class="ipbox pass">
+    	<p></p>
+    	<button id="showpass">Show</button>
+    	<p></p>
+    	<button type="submit">Register!</button>
+    	<div style="height:100px"></div>
+    </form>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+  </body>
+</html>
