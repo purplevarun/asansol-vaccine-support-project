@@ -61,7 +61,7 @@ app.post('/login', (req,res) => {
         if (err)
             console.log(err);
         else 
-            console.log(result);
+            console.log();
         if (result.length == 0){
             res.render ('login', {'msg':'Wrong Username or Password!'});
         }
@@ -79,6 +79,8 @@ app.get ('/welcome', (req,res) => {
         login_errors = "Please login first..";
         res.redirect('/login');
     }
-    res.render('welcome',{'info':current_user[0]});
-    current_user=-1;
+    else {
+        res.render('welcome',{'info':current_user[0]});
+        current_user=-1;
+    }
 });

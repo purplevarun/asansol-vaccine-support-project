@@ -23,7 +23,34 @@
     	.msg {
     		color : red;
     	}
+      #showpass {
+        width : 65px;
+        border : none;
+        background: none;
+        font-size : 12px;
+        text-align: center;
+        border: 1px solid black;
+        padding: 0px;
+        margin-top: 2px;
+        border-radius: 999px;
+      }
     </style>
+    <script>
+      window.onload = () => {
+        document.getElementById("showpass").onclick = (e) => {
+          e.preventDefault();
+          var passip = document.querySelector(".pass");
+          if (passip.type == 'password'){
+            passip.type = 'text';
+            document.querySelector("#showpass").innerHTML = "Hide";
+          }
+          else {
+            passip.type = 'password';
+            document.querySelector("#showpass").innerHTML = "Show";
+          }
+        }
+      }
+    </script>
   </head>
   <body>
     <form method='POST' action='/login'>
@@ -34,6 +61,8 @@
     	<p></p>
     	<h2>Enter Password :</h2>
     	<input type="password" name="password" class="ipbox">
+      <p></p>
+      <button id="showpass">Show</button>
     	<p></p>
     	<button type="submit">Login!</button>
     	<div style="height:100px"></div>
