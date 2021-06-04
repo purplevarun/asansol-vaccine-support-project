@@ -13,17 +13,24 @@ app.use (session({
     saveUninitialized : false
 
 }));
-const conn = mysql.createConnection({
-    // 'host':'localhost',
-    // 'user':'root',
-    // 'password':'',
-    // ----------------------
-    'host' : 'remotemysql.com',
-    'user' : '1vUSJFONyV',
-    'password' : 'j2KWkjfgS1',
-    'database' : '1vUSJFONyV'
-});
+// remote db
+const host = 'remotemysql.com';
+const user = '1vUSJFONyV';
+const password = 'j2KWkjfgS1';
 const db_name = '1vUSJFONyV';
+
+
+// local db
+// const host = 'localhost';
+// const user = 'root';
+// const password = '';
+// const db_name = 'test';
+const conn = mysql.createConnection({
+    'host' : host,
+    'user' : user,
+    'password' : password,
+    'database' : db_name
+});
 conn.connect((err) => {
     if (err)
         console.log(err);
