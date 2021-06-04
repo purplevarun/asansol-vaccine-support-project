@@ -25,13 +25,13 @@ conn.connect((err) => {
         console.log("Connected to Database Server!");
     
 });
-conn.query("create database if not exists db1;", (err) => {
+conn.query("create database if not exists vaccine_db;", (err) => {
     if (err)
         console.log(err);
     else
         console.log("DB Created!");
 }); 
-conn.query("use db1;");
+conn.query("use vaccine_db;");
 conn.query("create table if not exists info (email text, username text, password text);")
 app.listen(port, ()=>{
     console.log("Server Connected!");
@@ -40,23 +40,38 @@ app.get('/', (req,res) => {
     res.render('home');
 });
 app.get ('/login', (req,res) => {
-    res.render ('login');
+    res.render ('login',{'msg':login_errors});
+    login_errors="";
 });
 app.get ('/register', (req,res) => {
     res.render ('register');
 });
+var current_user = -1;
 app.post('/login', (req,res) => {
     var info = req.body;
     var un = info['username'];
     var pw = info['password'];
-    conn.query(`select * from info where username='${un}' and password='${pw}'`, (err, res)=>{
+    conn.query(`select * from info where username='${un}' and password='${pw}'`, (err, result)=>{
         if (err)
             console.log(err);
         else 
-            console.log(res);
-        if (res.length == 0)
-            console.log("NO DATA");
-        else 
-            console.log("DATA FOUND",res[0]['email']);
+            console.log(result);
+        if (result.length == 0){
+            res.render ('login', {'msg':'Wrong Username or Password!'});
+        }
+        else {
+            current_user = result;
+            res.redirect('/welcome');
+        }
+            
     });
+});
+var login_errors = "";
+app.get ('/welcome', (req,res) => {
+    // console.log("current = ",current_user);
+    if (current_user == -1){
+        login_errors = "Please login first..";
+        res.redirect('/login');
+    }
+    res.render('welcome');
 });
