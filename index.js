@@ -32,7 +32,13 @@ conn.query("create database if not exists vaccine_db;", (err) => {
         console.log("DB Created!");
 }); 
 conn.query("use vaccine_db;");
-conn.query("create table if not exists info (email text, username text, password text);")
+conn.query(
+    "create table if not exists info\
+    (id int not null auto_increment primary key, \
+    email text, \
+    username text, \
+    password text);"
+);
 app.listen(port, ()=>{
     console.log("Server Connected!");
 });
@@ -68,10 +74,11 @@ app.post('/login', (req,res) => {
 });
 var login_errors = "";
 app.get ('/welcome', (req,res) => {
-    // console.log("current = ",current_user);
+    console.log("current = ",current_user);
     if (current_user == -1){
         login_errors = "Please login first..";
         res.redirect('/login');
     }
-    res.render('welcome');
+    res.render('welcome',{'info':current_user[0]});
+    current_user=-1;
 });
