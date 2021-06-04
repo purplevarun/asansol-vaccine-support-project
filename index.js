@@ -86,5 +86,17 @@ app.get ('/welcome', (req,res) => {
 });
 app.post ('/register',(req,res) => {
     var info = req.body;
-    console.log(info);
+    // console.log(info);
+    var em = info['email'];
+    var un = info['username'];
+    var pw = info['password'];
+    conn.query(`insert into info(email,username,password)\
+    values('${em}','${un}','${pw}')`,(err,result)=>{
+        if (err) console.log(err);
+        // else console.log(result);
+        else
+            console.log("Data Inserted into Info Table!");
+    });
+    login_errors="You can login now!";
+    res.redirect("/login");
 });
