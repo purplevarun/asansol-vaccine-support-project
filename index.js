@@ -14,10 +14,16 @@ app.use (session({
 
 }));
 const conn = mysql.createConnection({
-    'host':'localhost',
-    'user':'root',
-    'password':'',
+    // 'host':'localhost',
+    // 'user':'root',
+    // 'password':'',
+    // ----------------------
+    'host' : 'remotemysql.com',
+    'user' : '1vUSJFONyV',
+    'password' : 'j2KWkjfgS1',
+    'database' : '1vUSJFONyV'
 });
+const db_name = '1vUSJFONyV';
 conn.connect((err) => {
     if (err)
         console.log(err);
@@ -25,13 +31,13 @@ conn.connect((err) => {
         console.log("Connected to Database Server!");
     
 });
-conn.query("create database if not exists vaccine_db;", (err) => {
-    if (err)
-        console.log(err);
-    else
-        console.log("DB Created!");
-}); 
-conn.query("use vaccine_db;");
+// conn.query("create database if not exists vaccine_db;", (err) => {
+//     if (err)
+//         console.log(err);
+//     else
+//         console.log("DB Created!");
+// }); 
+conn.query(`use ${db_name};`);
 conn.query(
     "create table if not exists info\
     (id int not null auto_increment primary key, \
