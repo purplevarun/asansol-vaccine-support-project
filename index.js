@@ -114,3 +114,7 @@ app.post ('/register',(req,res) => {
     login_errors="You can login now!";
     res.redirect("/login");
 });
+app.post ('/logout', (req,res) => {
+    current_user = -1;
+    res.redirect('/');
+});
