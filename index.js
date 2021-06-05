@@ -4,6 +4,16 @@ const app = express();
 const port = process.env.PORT || 3000;
 const bodyparser = require('body-parser');
 const session = require('express-session')
+const multer = require('multer');
+const handleError = (err, res) => {
+  res
+    .status(500)
+    .contentType("text/plain")
+    .end("Oops! Something went wrong!");
+};
+const upload = multer({
+  dest: "/uploaded"
+});
 app.set('view engine', 'ejs');;
 app.use(express.static('public'))
 app.use (bodyparser.json());
@@ -128,7 +138,11 @@ app.get ('/user/:id', (req,res) => {
 app.get ('/newCenter', (req,res)=>{
     res.render ('newcenter',{'info':current_user[0]});
 });
-
+app.post ('/newcenter', upload.single("photo"),(req,res)=>{
+    var x = req.body;
+    console.log(x);
+    
+});
 
 
 
