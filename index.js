@@ -125,3 +125,19 @@ app.get ('/user/:id', (req,res) => {
         res.render ('user',{'info':result[0]});
     });
 });
+app.get ('/newCenter', (req,res)=>{
+    res.render ('newcenter',{'info':current_user[0]});
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
