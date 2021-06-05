@@ -4,7 +4,8 @@ const app = express();
 const port = process.env.PORT || 3000;
 const bodyparser = require('body-parser');
 const session = require('express-session')
-app.set('view engine', 'ejs');
+app.set('view engine', 'ejs');;
+app.use(express.static('public'))
 app.use (bodyparser.json());
 app.use (bodyparser.urlencoded({extended:false}));
 app.use (session({
@@ -14,17 +15,17 @@ app.use (session({
 
 }));
 // remote db
-const host = 'remotemysql.com';
-const user = '1vUSJFONyV';
-const password = 'j2KWkjfgS1';
-const db_name = '1vUSJFONyV';
+// const host = 'remotemysql.com';
+// const user = '1vUSJFONyV';
+// const password = 'j2KWkjfgS1';
+// const db_name = '1vUSJFONyV';
 
 
 // local db
-// const host = 'localhost';
-// const user = 'root';
-// const password = '';
-// const db_name = 'test';
+const host = 'localhost';
+const user = 'root';
+const password = '';
+const db_name = 'test';
 const conn = mysql.createConnection({
     'host' : host,
     'user' : user,
@@ -68,9 +69,9 @@ app.get ('/register', (req,res) => {
 var current_user = -1;
 app.post('/login', (req,res) => {
     var info = req.body;
-    var un = info['username'];
+    var em = info['email'];
     var pw = info['password'];
-    conn.query(`select * from info where username='${un}' and password='${pw}'`, (err, result)=>{
+    conn.query(`select * from info where email='${em}' and password='${pw}'`, (err, result)=>{
         if (err)
             console.log(err);
         else 
@@ -94,7 +95,7 @@ app.get ('/welcome', (req,res) => {
     }
     else {
         res.render('welcome',{'info':current_user[0]});
-        current_user=-1; // comment out during development
+        // current_user=-1; // comment out during development
     }
 });
 app.post ('/register',(req,res) => {
