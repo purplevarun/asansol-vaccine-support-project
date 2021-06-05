@@ -7,36 +7,41 @@
     <meta http-equiv="refresh" content="1" />
     <title>Welcome!</title>
     <style>
-      #left {
+      .left {
         width : 70%;
         height: 100vh;
         float: left;
         background: white;
 
       }
-      #right{
+      .right{
         width: 30%;
         height: 100vh;
         float: left;
         background: grey;
         border-top: none;
         border-right: none;
-        text-align: center;
+        text-align: left;
+        font-size: 12px;
+      }
+      p{
+        margin-left: 5px;
       }
       .bord {
         border : 2px solid black;
       }
-      #topbar {
-        height: 12vh;
+      .topbar {
+        height: 5vh;
         width: 100%;
         background: black;
         border-top: none;
         border-right: none;
         text-align: center;
         color: white;
+        font-size: 12px;
       }
-      #abt {
-        text-decoration: underline;
+      .abt {
+        /*text-decoration: underline;*/
         color: black;
       }
       .logoutbtn{
@@ -47,6 +52,23 @@
       }
       h2{
         color: black;
+      }
+      @media only screen and (min-width: 600px){
+        .right {
+          font-size: 20px;
+          text-align: center;
+          width: 30%;
+        }
+        .left {
+          width: 70%;
+        }
+        .topbar{
+          font-size: 30px;
+          height: 10vh;
+        }
+        img {
+          width: 30px;
+        }
       }
     </style>
     <script>
@@ -59,31 +81,31 @@
     </script>
   </head>
   <body>
-    <div id="left">
-      <div id="topbar" class="bord">
-        <h1>Welcome to Asansol Vaccine Support</h1>
+    <div class="left">
+      <div class="topbar" class="bord">
+        Welcome to Asansol Vaccine Support
       </div>
     </div>
-    <div id="right" class="bord">
-      <h2>User Panel:-</h2>
-      <h2>
+    <div class="right" class="bord">
+      <p>User Panel:-</p>
+      <p>
         <%=info['username']%>
-      </h2>
+      </p>
       <hr>
-      <h2>Add New Center</h2>
+      <p>Add New Center</p>
       <hr>
-      <h2>Report to Admin</h2>
+      <p>Report to Admin</p>
       <hr>
-      <h2>
-        <a href="/about" id="abt">About this Project</a>
-        <img src="info.png" width="30px">
-      </h2>
+      <p>
+        <a href="/about" class="abt" style="text-decoration:none">About this Project</a>
+        <img src="info.png" width="10px">
+      </p>
       <hr>
-      <h2>
+      <p>
         <form method="POST" action="/logout">
           <button class="logoutbtn">Logout</button>
         </form>
-      </h2>
+      </p>
       
       <hr>
     </div>
