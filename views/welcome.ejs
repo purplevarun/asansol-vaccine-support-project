@@ -22,7 +22,7 @@
         border-top: none;
         border-right: none;
         text-align: left;
-        font-size: 12px;
+        font-size: 15px;
       }
       p{
         margin-left: 5px;
@@ -38,7 +38,7 @@
         border-right: none;
         text-align: center;
         color: white;
-        font-size: 12px;
+        font-size: 15px;
       }
       .abt {
         /*text-decoration: underline;*/
@@ -52,6 +52,10 @@
       }
       h2{
         color: black;
+      }
+      a{
+          text-decoration : underline;
+          color : black;
       }
       @media only screen and (min-width: 600px){
         .right {
@@ -69,6 +73,7 @@
         img {
           width: 30px;
         }
+        
       }
     </style>
     <script>
@@ -92,9 +97,11 @@
         <%=info['username']%>
       </p>
       <hr>
-      <p>Add New Center</p>
+      <p><a href="/user/<%-info['username']%>">My Profile</a></p>
       <hr>
-      <p>Report to Admin</p>
+      <p><a>Add New Center</a></p>
+      <hr>
+      <p><a>Report to Admin</a></p>
       <hr>
       <p>
         <a href="/about" class="abt" style="text-decoration:none">About this Project</a>

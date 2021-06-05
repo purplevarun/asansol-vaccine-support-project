@@ -118,3 +118,10 @@ app.post ('/logout', (req,res) => {
     current_user = -1;
     res.redirect('/');
 });
+app.get ('/user/:id', (req,res) => {
+    var username = req.params.id;
+    conn.query (`select * from info where username = "${username}"`, (err, result)=> {
+        if (err) console.log (err);
+        res.render ('user',{'info':result[0]});
+    });
+});
