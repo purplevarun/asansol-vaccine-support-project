@@ -5,14 +5,18 @@ const port = process.env.PORT || 3000;
 const bodyparser = require('body-parser');
 const session = require('express-session')
 const multer = require('multer');
-const handleError = (err, res) => {
-  res
-    .status(500)
-    .contentType("text/plain")
-    .end("Oops! Something went wrong!");
-};
+const path = require("path");
+const storage = multer.diskStorage({
+   destination :  (req,file,cb) => {
+    cb(null,"public/uploads")
+   },
+   filename: (req, file, cb)=>{
+        console.log(file);
+        cb(null, Date.now()+file.originalname);
+   }
+});
 const upload = multer({
-  dest: "/uploaded"
+    storage:storage
 });
 app.set('view engine', 'ejs');;
 app.use(express.static('public'))
@@ -63,6 +67,11 @@ conn.query(
     username text, \
     password text);"
 );
+conn.query(
+    "create table if not exists centers\
+    (username text,name text, landmark text, \
+    type text, pic text, address text);"
+);
 app.listen(port, ()=>{
     console.log("Server Connected!");
 });
@@ -85,7 +94,7 @@ app.post('/login', (req,res) => {
         if (err)
             console.log(err);
         else 
-            console.log();
+            console.log("result = ",result);
         if (result.length == 0){
             res.render ('login', {'msg':'Wrong Username or Password!'});
         }
@@ -138,12 +147,26 @@ app.get ('/user/:id', (req,res) => {
 app.get ('/newCenter', (req,res)=>{
     res.render ('newcenter',{'info':current_user[0]});
 });
-app.post ('/newcenter', upload.single("photo"),(req,res)=>{
-    var x = req.body;
-    console.log(x);
-    
+app.post('/newcenter',(upload.single('photo')),(req,res)=>{
+    var info = req.body;
+    var filepath = req.file.path;
+    filepath = filepath.replace("public\\uploads","");
+    var username = current_user[0]['username'];
+    var name = info['name'];
+    var land = info['landmark'];
+    var type = info['type'];
+    var add = info['address'];
+    conn.query(
+        `insert into centers values(\
+        '${username}',\
+        '${name}',\
+        '${land}',\
+        '${type}',\
+        '${filepath}',\
+        '${add}');`
+    );
+    res.redirect('/welcome');
 });
-
 
 
 

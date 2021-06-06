@@ -41,7 +41,7 @@
   <body>
     <h2>Add a new Vaccination Center by - <%=info['username']%></h2>
     <hr>
-    <form method="POST" action="/newcenter">
+    <form method="POST" action="/newcenter" enctype="multipart/form-data">
     	<h3>Name of Center :</h3>
     	<input type="text" name="name">
     	<br>
