@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "multer": "^1.4.2",
+    "passport": "^0.4.1"
+  },
+  "name": "asansol-vaccine-support-project",
+  "version": "2.0.0",
+  "description": "vaccine in asansol",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "nodemon index.js"
+  },
+  "author": "Varun Kedia",
+  "license": "ISC"
+}
