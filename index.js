@@ -7,7 +7,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const mongoose = require('mongoose');
 const session = require('express-session');
-
+const User = require('./models/User');
 app.set('view engine', 'ejs');
 app.use(bodyparser.urlencoded({extended:true}));
 app.use(flash());
@@ -17,7 +17,11 @@ app.use(session({
 	resave: false,
 	saveUninitialized: false
 }));
-
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 mongoose.set('useUnifiedTopology',true);
 mongoose.set('useNewUrlParser',true);
 mongoose.set('useCreateIndex',true);
@@ -26,16 +30,8 @@ mongoose.connect('mongodb://localhost',(err)=>{
 	else console.log("Connected to MongoDB");
 });
 
-app.get('/', (req,res) => {
-	req.flash('hemlo');
-	res.render('homepage');
-});
-app.get ('/login', (req,res) => {
-	res.render('login');
-});
-app.get ('/register', (req,res) => {
-	res.render('register');
-});
+const indexRoutes = require('./routes/indexRoutes');
+app.use('/', indexRoutes);
 app.listen(port,(err)=>{
 	console.log(`server started on ${port}`);
 });
