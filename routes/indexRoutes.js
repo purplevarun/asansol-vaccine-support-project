@@ -5,7 +5,9 @@ var nodemailer = require('nodemailer');
 var multer = require ('multer');
 
 var User = require ('../models/User');
-
+var storage = multer.diskStorage({
+	
+});
 router.get('/', (req,res) => {
 	req.flash('hemlo');
 	res.render('homepage');
