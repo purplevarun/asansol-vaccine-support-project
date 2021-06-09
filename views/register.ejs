@@ -14,23 +14,26 @@
     	.imgip{
     		margin-left: 100px;
     	}
+      .req{
+        color: red;
+      }
     </style>
   </head>
   <body>
   	<h1>Registration Page</h1>
   	<div style="height:50px"></div>
-   	<form method="POST" action="/register">
-   		<h2>Enter Email</h2>
-   		<input type="text" name="email">
+   	<form method="GET" action="/register" >
+   		<h2>Enter Email <span class="req">*</span></h2>
+   		<input type="text" name="email" required autofocus> 
    		<div style="height:20px"></div>
-   		<h2>Enter Username</h2>
-   		<input type="text" name="username">
+   		<h2>Enter Username <span class="req">*</span></h2>
+   		<input type="text" name="username" required>
    		<div style="height:20px"></div>
    		<h2>Upload Profile Picture</h2>
    		<input type="file" accept="image/*" name="photo" class="imgip">
    		<div style="height:20px"></div>
-   		<h2>Enter Password</h2>
-   		<input type="text" name="password">
+   		<h2>Enter Password <span class="req">*</span></h2>
+   		<input type="text" name="password" required>
    		<div style="height:50px"></div>
    		<button type="submit">Register</button>
    	</form>
