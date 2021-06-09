@@ -11,3 +11,9 @@ app.listen(port, () => {
 app.get("/", (req, res) => {
   res.render("homepage");
 });
+app.get("/login", (req, res) => {
+  res.render("loginpage");
+});
+app.get("/register", (req, res) => {
+  res.render("registerpage");
+});
