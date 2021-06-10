@@ -3,7 +3,16 @@ var app = express();
 var mongoose = require("mongoose");
 var port = process.env.PORT || 3000;
 var bodyparser = require("body-parser");
-
+var multer = require("multer");
+var storage = multer.diskStorage({
+  destination: (req, file, callback) => {
+    callback(null, "./public/uploads");
+  },
+  filename: (req, file, callback) => {
+    callback(null, Date.now() + file.originalname);
+  },
+});
+var upload = multer({ storage: storage });
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(bodyparser.json());
@@ -23,7 +32,7 @@ app.get("/login", (req, res) => {
 app.get("/register", (req, res) => {
   res.render("registerpage");
 });
-app.post("/register", (req, res) => {
+app.post("/register", upload.single("photo"), (req, res) => {
   var data = req.body;
   console.log(data);
   res.redirect("/register");
