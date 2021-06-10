@@ -34,6 +34,7 @@ app.get("/register", (req, res) => {
 });
 app.post("/register", upload.single("photo"), (req, res) => {
   var data = req.body;
+
   console.log(data);
   res.redirect("/register");
 });
