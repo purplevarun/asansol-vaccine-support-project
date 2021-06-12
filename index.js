@@ -44,3 +44,15 @@ app.get("/login", (req, res) => {
 app.get("/register", (req, res) => {
   res.render("register");
 });
+app.post("/register", upload.single("photo"), (req, res) => {
+  // console.log(req.body);
+  var em = req.body.email;
+  var nm = req.body.name;
+  var pw = req.body.password;
+  var pic;
+  if (req.file) {
+    pic = req.file.filename;
+  } else pic = "defaultdp.jpg";
+  console.log(em, nm, pw, pic);
+  res.redirect("/register");
+});
