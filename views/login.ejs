@@ -32,32 +32,18 @@
     <div class="distance"></div>
     <form action="/login" method="post" enctype="multipart/form-data">
       <h2>
-        Enter Name :
-        <span class="necc">*</span>
-        <br />
-        <input type="text" name="name" />
-      </h2>
-      <div class="disles"></div>
-      <h2>
         Enter Email :
         <span class="necc">*</span>
         <br />
-        <input type="email" name="email" />
+        <input type="email" name="email" required />
       </h2>
       <div class="disles"></div>
       <h2>
         Enter Password :
         <span class="necc">*</span>
         <br />
-        <input type="password" name="password" />
+        <input type="password" name="password" required />
       </h2>
-      <div class="disles"></div>
-      <h2>
-        Upload Profile Picture :
-        <br />
-        <input type="file" name="photo" accept="image/*" id="fileip" />
-      </h2>
-      <div class="disles"></div>
       <button type="submit" class="btn btn-lg btn-danger">Login !</button>
     </form>
     <script

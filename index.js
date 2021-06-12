@@ -3,7 +3,17 @@ const bodyparser = require("express");
 const mongoose = require("mongoose");
 const app = express();
 const port = process.env.PORT || 3000;
-
+const multer = require("multer");
+// multer settings
+const storage = multer.diskStorage({
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + file.originalname);
+  },
+  destination: (req, file, cb) => {
+    cb(null, "./public/uploads");
+  },
+});
+const upload = multer({ storage: storage });
 // express connection
 app.set("view engine", "ejs");
 app.use(express.static("public"));
