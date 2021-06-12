@@ -1,0 +1,23 @@
+* {
+  text-align: center;
+}
+.distance {
+  height: 50px;
+}
+.creds {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+}
+.disles {
+  height: 25px;
+}
+input {
+  text-align: left;
+  border: 2px solid black;
+  outline: none;
+  border-radius: 20px;
+}
+.necc {
+  color: red;
+}
