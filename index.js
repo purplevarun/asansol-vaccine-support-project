@@ -26,6 +26,9 @@ mongoose.connect(mongourl, (err) => {
 
 // routes
 app.get("/", (req, res) => {
+  res.render("front");
+});
+app.get("/login", (req, res) => {
   res.render("login");
 });
 app.get("/register", (req, res) => {
