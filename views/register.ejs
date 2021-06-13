@@ -33,7 +33,16 @@
     <div class="errors">
       <h3><%=error%></h3>
     </div>
-    <div class="msgs"><%=msg%></div>
+    <div class="msgs">
+      <h3><%=msg%></h3>
+    </div>
+    <div class="loginoption">
+      <%if (loginbtn){%>
+      <a href="/login">
+        <button class="btn btn-success">Login!</button>
+      </a>
+      <%}%>
+    </div>
     <div class="disles"></div>
     <form action="/register" method="post" enctype="multipart/form-data">
       <h2>

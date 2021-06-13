@@ -44,7 +44,7 @@ app.get("/login", (req, res) => {
   res.render("login");
 });
 app.get("/register", (req, res) => {
-  res.render("register", { error: "", msg: "" });
+  res.render("register", { error: "", msg: "", loginbtn: false });
 });
 app.post("/register", upload.single("photo"), (req, res) => {
   // console.log(req.body);
@@ -60,12 +60,14 @@ app.post("/register", upload.single("photo"), (req, res) => {
     console.log("no dp uploaded");
   }
   console.log(`${em}, ${nm}, ${pw}, ${pic}`);
-  var error, msg;
   User.findOne({ email: em }).then((user) => {
     if (user) {
       console.log("already exist");
-      error = "This Email already exists!";
-      res.render("register", { error: error, msg: msg });
+      res.render("register", {
+        error: "This Email already exists",
+        msg: "",
+        loginbtn: false,
+      });
     } else {
       const NewUser = new User({
         email: em,
@@ -78,9 +80,10 @@ app.post("/register", upload.single("photo"), (req, res) => {
           console.log("New User added" + NewUser);
         })
         .catch((err) => console.log(err));
-      res.render("/register", {
+      res.render("register", {
         error: "",
-        msg: 'Your Account has been created! You can now <a href="/login">Login</a>',
+        msg: "Your Account has been created!",
+        loginbtn: true,
       });
     }
   });
