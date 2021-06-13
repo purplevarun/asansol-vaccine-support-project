@@ -29,8 +29,17 @@
   </head>
   <body>
     <h1>Login Page</h1>
-    <div class="distance"></div>
-    <form action="/login" method="post" enctype="multipart/form-data">
+    <div class="disles"></div>
+    <div class="errors">
+      <h3><%=error%></h3>
+    </div>
+    <div class="rebtns">
+      <%if (regbtn){%>
+      <button class="btn btn-primary">Register!</button>
+      <%}%>
+    </div>
+    <div class="disles"></div>
+    <form action="/login" method="post">
       <h2>
         Enter Email :
         <span class="necc">*</span>

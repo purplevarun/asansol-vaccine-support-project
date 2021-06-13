@@ -17,7 +17,7 @@ const upload = multer({ storage: storage });
 // express connection
 app.set("view engine", "ejs");
 app.use(express.static("public"));
-app.use(bodyparser.json());
+// app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: true }));
 app.listen(port, () => {
   console.log("Server Running at " + port);
@@ -41,13 +41,13 @@ app.get("/", (req, res) => {
   res.render("front");
 });
 app.get("/login", (req, res) => {
-  res.render("login");
+  res.render("login", { error: "", regbtn: false });
 });
 app.get("/register", (req, res) => {
   res.render("register", { error: "", msg: "", loginbtn: false });
 });
 app.post("/register", upload.single("photo"), (req, res) => {
-  // console.log(req.body);
+  console.log(req.body);
   var em = req.body.email;
   var nm = req.body.name;
   var pw = req.body.password;
@@ -60,31 +60,59 @@ app.post("/register", upload.single("photo"), (req, res) => {
     console.log("no dp uploaded");
   }
   console.log(`${em}, ${nm}, ${pw}, ${pic}`);
-  User.findOne({ email: em }).then((user) => {
-    if (user) {
-      console.log("already exist");
-      res.render("register", {
-        error: "This Email already exists",
-        msg: "",
-        loginbtn: false,
-      });
-    } else {
-      const NewUser = new User({
-        email: em,
-        name: nm,
-        password: pw,
-        dp: pic,
-      });
-      NewUser.save()
-        .then(() => {
-          console.log("New User added" + NewUser);
-        })
-        .catch((err) => console.log(err));
-      res.render("register", {
-        error: "",
-        msg: "Your Account has been created!",
-        loginbtn: true,
-      });
+  // validation..
+  if (pw.length < 6) {
+    res.render("register", {
+      error: "Password should be atleast 6 letters!",
+      msg: "",
+      loginbtn: false,
+    });
+  } else {
+    User.findOne({ email: em }, (err, result) => {
+      console.log("result = ", result);
+      if (result) {
+        console.log("already exist");
+        res.render("register", {
+          error: "This Email already exists",
+          msg: "",
+          loginbtn: false,
+        });
+      } else {
+        const NewUser = new User({
+          email: em,
+          name: nm,
+          password: pw,
+          dp: pic,
+        });
+        NewUser.save((err, result) => {
+          if (err) console.log(err);
+          else console.log("new user added = ", result);
+        });
+        res.render("register", {
+          error: "",
+          msg: "Your Account has been created!",
+          loginbtn: true,
+        });
+      }
+    });
+  }
+});
+app.post("/login", (req, res) => {
+  var em = req.body.email;
+  var pw = req.body.password;
+  // console.log(em, pw);
+  User.findOne({ email: em, password: pw }, (err, result) => {
+    if (err) console.log(err);
+    else {
+      console.log("result = ", result);
+      if (result == null) {
+        res.render("login", {
+          error: "You do not have an account yet!",
+          regbtn: true,
+        });
+      } else {
+        res.send("Login Successful");
+      }
     }
   });
 });
