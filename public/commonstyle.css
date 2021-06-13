@@ -24,3 +24,9 @@ input {
 h2 {
   font-size: 20px;
 }
+.errors {
+  background-color: red;
+}
+.msgs {
+  background-color: green;
+}
