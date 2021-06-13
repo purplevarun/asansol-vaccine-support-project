@@ -20,10 +20,6 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 // app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: true }));
-app.listen(port, () => {
-  console.log("Server Running at " + port);
-});
-
 // mongodb connection
 const mongourl =
   "mongodb+srv://purplevarun:pikachu24@cluster0.emytc.mongodb.net/VaccineProject";
@@ -138,4 +134,7 @@ app.get("/*", (req, res) => {
     <h1>Page Not Found</h1><a href='/login'>\
     <button>Go Back</button></a>"
   );
+});
+app.listen(port, () => {
+  console.log("Server Running at " + port);
 });
