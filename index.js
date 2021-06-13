@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyparser = require("express");
+const fs = require("fs");
 const mongoose = require("mongoose");
 const app = express();
 const port = process.env.PORT || 3000;
@@ -79,7 +80,12 @@ app.post("/register", upload.single("photo"), (req, res) => {
           email: em,
           name: nm,
           password: pw,
-          dp: pic,
+          dp: {
+            data: fs.readFileSync(
+              path.join(__dirname + "/public/uploads/" + pic)
+            ),
+            contentType: "image",
+          },
         });
         NewUser.save((err, result) => {
           if (err) console.log(err);

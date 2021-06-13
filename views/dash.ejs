@@ -27,7 +27,8 @@
     </style>
     <script>
       window.onload = () => {
-        document.querySelector("#dp").src = "../../uploads/<%-info.dp%>";
+        document.querySelector("#pic").src =
+          "data:image/<%-info.dp.contentType%>;base64,<%-info.dp.data.toString('base64')%>";
       };
     </script>
   </head>
@@ -36,7 +37,7 @@
       <div class="info">
         <h2>User : <%=info.name%></h2>
         <h2>Email : <%=info.email%></h2>
-        <img src="" alt="Loading.." id="dp" width="100px" />
+        <img src="" alt="Loading.." width="200px" id="pic" />
       </div>
     </div>
     <script

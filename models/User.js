@@ -14,7 +14,8 @@ const UserSchema = new mongoose.Schema({
     required: true,
   },
   dp: {
-    type: String,
+    data: Buffer,
+    contentType: String,
   },
   date: {
     type: Date,
