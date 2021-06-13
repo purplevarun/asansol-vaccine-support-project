@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const app = express();
 const port = process.env.PORT || 3000;
 const multer = require("multer");
+const path = require("path");
 // multer settings
 const storage = multer.diskStorage({
   filename: (req, file, cb) => {
@@ -101,18 +102,40 @@ app.post("/login", (req, res) => {
   var em = req.body.email;
   var pw = req.body.password;
   // console.log(em, pw);
-  User.findOne({ email: em, password: pw }, (err, result) => {
+  User.findOne({ email: em }, (err, result) => {
     if (err) console.log(err);
     else {
-      console.log("result = ", result);
+      // console.log("result = ", result);
       if (result == null) {
         res.render("login", {
           error: "You do not have an account yet!",
           regbtn: true,
         });
       } else {
-        res.send("Login Successful");
+        if (result.password == pw) {
+          current_user = result.id;
+          res.redirect("/dashboard/user/" + result.id);
+        } else {
+          res.render("login", { error: "Wrong Password!", regbtn: false });
+        }
       }
     }
   });
+});
+app.get("/dashboard/user/:id", (req, res) => {
+  var objid = req.params.id;
+  User.findById(objid, (err, result) => {
+    if (result) {
+      res.render("dash", { info: result });
+    } else {
+      res.redirect("/user/not/found");
+    }
+  });
+});
+app.get("/*", (req, res) => {
+  res.send(
+    "<style>*{text-align:center;}</style>\
+    <h1>Page Not Found</h1><a href='/login'>\
+    <button>Go Back</button></a>"
+  );
 });
