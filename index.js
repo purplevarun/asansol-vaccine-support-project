@@ -52,7 +52,11 @@ app.post("/register", upload.single("photo"), (req, res) => {
   var pic;
   if (req.file) {
     pic = req.file.filename;
-  } else pic = "defaultdp.jpg";
-  console.log(em, nm, pw, pic);
+    console.log("dp uploaded = " + pic);
+  } else {
+    pic = "defaultdp.jpg";
+    console.log("no dp uploaded");
+  }
+  console.log(`${em}, ${nm}, ${pw}, ${pic}`);
   res.redirect("/register");
 });
