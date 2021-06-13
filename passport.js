@@ -11,7 +11,9 @@ module.exports = (passport) => {
       {
         usernameField: "email",
       },
-      (email, password, done) => {}
+      (email, password, done) => {
+					
+	  }
     )
   );
 };
