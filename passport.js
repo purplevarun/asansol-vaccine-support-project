@@ -12,8 +12,13 @@ module.exports = (passport) => {
         usernameField: "email",
       },
       (email, password, done) => {
-					
-	  }
+        // Match User
+        User.findOne({ email: email }, (err, result) => {
+          if (!result) {
+            return done();
+          }
+        });
+      }
     )
   );
 };
