@@ -6,6 +6,9 @@ const app = express();
 const port = process.env.PORT || 3000;
 const multer = require("multer");
 const path = require("path");
+const session = require("express-session");
+const flash = require("connect-flash");
+const passport = require("passport");
 // multer settings
 const storage = multer.diskStorage({
   filename: (req, file, cb) => {
@@ -19,8 +22,30 @@ const upload = multer({ storage: storage });
 // express connection
 app.set("view engine", "ejs");
 app.use(express.static("public"));
-// app.use(bodyparser.json());
+// middleware
 app.use(bodyparser.urlencoded({ extended: true }));
+// express session
+app.use(
+  session({
+    secret: "secret",
+    resave: true,
+    saveUninitialized: true,
+  })
+);
+// Connect flash
+app.use(flash());
+
+// Global variables
+app.use(function (req, res, next) {
+  res.locals.success_msg = req.flash("success_msg");
+  res.locals.error_msg = req.flash("error_msg");
+  res.locals.error = req.flash("error");
+  next();
+});
+// passport middleware
+require("./passport")(passport);
+app.use(passport.initialize());
+app.use(passport.session());
 // mongodb connection
 const mongourl =
   "mongodb+srv://purplevarun:pikachu24@cluster0.emytc.mongodb.net/VaccineProject";
@@ -100,10 +125,9 @@ app.post("/register", upload.single("photo"), (req, res) => {
     });
   }
 });
-app.post("/login", (req, res) => {
+app.post("/login", (req, res, next) => {
   var em = req.body.email;
   var pw = req.body.password;
-  // console.log(em, pw);
   User.findOne({ email: em }, (err, result) => {
     if (err) console.log(err);
     else {
@@ -114,12 +138,17 @@ app.post("/login", (req, res) => {
           regbtn: true,
         });
       } else {
-        if (result.password == pw) {
-          current_user = result.id;
-          res.redirect("/dashboard/user/" + result.id);
-        } else {
-          res.render("login", { error: "Wrong Password!", regbtn: false });
-        }
+        passport.authenticate("local", {
+          successRedirect: "/dashboard/user/" + result.id,
+          failureRedirect: "/login",
+          failureFlash: true,
+        })(req, res, next);
+        // if (result.password == pw) {
+        //   current_user = result.id;
+        //   res.redirect("/dashboard/user/" + result.id);
+        // } else {
+        //   res.render("login", { error: "Wrong Password!", regbtn: false });
+        // }
       }
     }
   });

@@ -15,10 +15,27 @@ module.exports = (passport) => {
         // Match User
         User.findOne({ email: email }, (err, result) => {
           if (!result) {
-            return done();
+            return done(null, false, {
+              message: "This Email is not Registered!",
+            });
+          }
+          // Match Password
+          if (password === result.password) {
+            return done(null, result);
+          } else {
+            return done(null, false, { message: "Password does not Match!" });
           }
         });
       }
     )
   );
+  passport.serializeUser((user, done) => {
+    done(null, user.id);
+  });
+
+  passport.deserializeUser((id, done) => {
+    User.findById(id, function (err, user) {
+      done(err, user);
+    });
+  });
 };
