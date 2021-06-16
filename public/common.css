@@ -1,0 +1,29 @@
+* {
+  text-align: center;
+}
+.creds {
+  font-size: 20px;
+  position: absolute;
+  width: 100%;
+  bottom: 10px;
+}
+.msgs {
+  width: 400px;
+}
+.good {
+  background: lightgreen;
+  background-opacity: 70%;
+}
+.bad {
+  background: red;
+  background-opacity: 70%;
+}
+.fifty {
+  height: 50px;
+}
+.hundred {
+  height: 100px;
+}
+.twenty {
+  height: 20px;
+}
