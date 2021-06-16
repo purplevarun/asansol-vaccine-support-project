@@ -44,12 +44,13 @@ router.post("/register", upload.single("pic"), (req, res, next) => {
       contentType: "image",
     },
   });
-  // console.log(newUser);
-
-  newUser.save(() => {
-    console.log("registered..");
-    req.flash("success", "You are Registered!");
-    res.redirect("/dashboard");
+  User.register(newUser, req.body.password, function (err, user, info) {
+    if (err) {
+      req.flash("error", err.message);
+      res.redirect("/register");
+    }
+    req.flash("success", "You can now Login!");
+    res.redirect("/login");
   });
 });
 module.exports = router;

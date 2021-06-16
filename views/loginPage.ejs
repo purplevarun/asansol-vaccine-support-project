@@ -23,7 +23,12 @@
     <div class="wrap">
       <a href="/"> <button class="btn back">Go Back</button></a>
     </div>
-    <div class="hund"></div>
+    <div class="fif"></div>
+    <% if (error && error.length > 0){ %>
+    <div class="alert alert-danger"><%=error%></div>
+    <% } %> <% if (success && success.length > 0){ %>
+    <div class="alert alert-success"><%=success%></div>
+    <% } %>
     <form action="/login" method="post">
       <h2>Enter Email</h2>
       <h2><input type="text" name="email" id="" /></h2>
