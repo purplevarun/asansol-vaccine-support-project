@@ -47,21 +47,63 @@ app.post("/register", upload.single("photo"), (req, res) => {
   else pic = "./uploads/default.png";
   const newUser = new User({
     email: email,
-    name: name,
+    username: name,
     password: pass,
     dp: {
       data: fs.readFileSync(pic),
       contentType: "image",
     },
   });
-  console.log(newUser);
-  res.redirect("/newUser/register");
+  // console.log(newUser);
+  User.register(newUser, pass, (err, result) => {
+    console.log("result = ", result);
+    if (err) {
+      flash_type = "alert alert-danger";
+      flash_msg = "Account not created.. please try again";
+      res.redirect("/newUser/register");
+    } else {
+      flash_type = "alert alert-success";
+      flash_msg = "Your Account has been created";
+      res.redirect("/user/login");
+    }
+  });
 });
+app.post("/login", (req, res) => {
+  var email = req.body.email;
+  var password = req.body.pass;
+  User.findOne({ email: email }, (err, result) => {
+    console.log("result = " + result);
+    if (!result) {
+      flash_type = "alert alert-danger";
+      flash_msg = "Email does not exist !";
+      res.redirect("/user/login");
+    } else {
+      User.findOne({ email: email, password: password }, (err2, result2) => {
+        console.log("result2 = " + result2);
+        if (!result2) {
+          flash_type = "alert alert-danger";
+          flash_msg = "Password is wrong !";
+          res.redirect("/user/login");
+        } else {
+          flash_type = "alert alert-primary";
+          flash_msg = "Logged IN !";
+          res.redirect("/user/login");
+        }
+      });
+    }
+  });
+});
+app.get("/panel/:username", (req, res) => {});
+app.get("/unique/:id", (req, res) => {});
 app.get("/user/login", (req, res) => {
   res.render("login-page", { type: flash_type, msg: flash_msg });
+  flash_type = null;
+  flash_msg = null;
 });
 app.get("/newUser/register", (req, res) => {
-  res.render("register-page", { type: null, msg: null });
+  res.render("register-page", { type: flash_type, msg: flash_msg });
+  flash_type = null;
+  flash_msg = null;
 });
 app.get("/", (req, res) => {
   res.render("home-page", {
