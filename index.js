@@ -17,6 +17,10 @@ app.use(flash());
 mongoose.set("useUnifiedTopology", true);
 mongoose.set("useNewUrlParser", true);
 mongoose.set("useCreateIndex", true);
+mongoose.connect(require("./data/mongourl"), (err) => {
+  if (err) console.log(err);
+  console.log("mongodb connected");
+});
 // passport config
 const User = require("./models/User");
 app.use(
@@ -31,6 +35,12 @@ app.use(passport.session());
 passport.use(new local(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  res.locals.error = req.flash("error");
+  res.locals.success = req.flash("success");
+  next();
+});
 // routes config
 const userRoutes = require("./routes/user");
 const loginRoutes = require("./routes/login");

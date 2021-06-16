@@ -1,5 +1,18 @@
 const express = require("express");
 const router = express.Router();
+const User = require("../models/User");
+const multer = require("multer");
+const fs = require("fs");
+const passport = require("passport");
+const storage = multer.diskStorage({
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + file.originalname);
+  },
+  destination: (req, file, cb) => {
+    cb(null, "uploads");
+  },
+});
+const upload = multer({ storage: storage });
 router.get("/", (req, res) => {
   res.render("home");
 });
@@ -8,5 +21,35 @@ router.get("/login", (req, res) => {
 });
 router.get("/register", (req, res) => {
   res.render("registerPage");
+});
+router.post("/register", upload.single("pic"), (req, res, next) => {
+  var dp;
+  if (req.file) {
+    console.log("file was uploaded " + req.file.filename);
+    dp = req.file.path;
+  } else {
+    console.log("no file was uploaded");
+    dp = "uploads\\default.png";
+  }
+  var em = req.body.email,
+    nm = req.body.name,
+    pw = req.body.password;
+  //console.log({ em, nm, pw, dp });
+  var newUser = new User({
+    email: em,
+    username: nm,
+    password: pw,
+    dp: {
+      data: fs.readFileSync(dp),
+      contentType: "image",
+    },
+  });
+  // console.log(newUser);
+
+  newUser.save(() => {
+    console.log("registered..");
+    req.flash("success", "You are Registered!");
+    res.redirect("/dashboard");
+  });
 });
 module.exports = router;
