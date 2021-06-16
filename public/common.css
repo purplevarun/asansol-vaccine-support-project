@@ -1,0 +1,19 @@
+body {
+  text-align: center;
+}
+.fif {
+  height: 50px;
+}
+.hund {
+  height: 100px;
+}
+.tw {
+  height: 20px;
+}
+.cred {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  font-size: 20px;
+  font-weight: 500;
+}
