@@ -10,11 +10,13 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(bodyparser.urlencoded({ extended: true }));
 // routes
+var flash_type = null;
+var flash_msg = null;
 app.get("/user/login", (req, res) => {
-  res.render("login-page", { type: null, msg: null });
+  res.render("login-page", { type: flash_type, msg: flash_msg });
 });
 app.get("/newUser/register", (req, res) => {
-  res.render("register-page");
+  res.render("register-page", { type: null, msg: null });
 });
 app.get("/", (req, res) => {
   res.render("home-page", {

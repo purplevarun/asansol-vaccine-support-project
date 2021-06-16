@@ -10,14 +10,6 @@
 .msgs {
   width: 400px;
 }
-.good {
-  background: lightgreen;
-  background-opacity: 70%;
-}
-.bad {
-  background: red;
-  background-opacity: 70%;
-}
 .fifty {
   height: 50px;
 }
@@ -26,4 +18,10 @@
 }
 .twenty {
   height: 20px;
+}
+input {
+  border: solid 3px black;
+}
+input:focus {
+  outline: none;
 }
