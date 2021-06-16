@@ -17,3 +17,24 @@ body {
   font-size: 20px;
   font-weight: 500;
 }
+input {
+  border-radius: 10px;
+  outline: none;
+  border-width: 3px;
+  border-color: black;
+}
+input:focus {
+  outline: none;
+  border-color: limegreen;
+}
+.back {
+  border: black;
+  background-color: darkcyan;
+  color: white;
+  position: absolute;
+  margin-left: 25px;
+  margin-top: -20px;
+}
+.wrap {
+  text-align: left;
+}
