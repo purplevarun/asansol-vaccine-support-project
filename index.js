@@ -11,24 +11,25 @@ app.use(express.static("public"));
 app.use(bodyparser.urlencoded({ extended: true }));
 // routes
 app.get("/user/login", (req, res) => {
-  res.render("login-page");
+  res.render("login-page", { type: null, msg: null });
 });
 app.get("/newUser/register", (req, res) => {
   res.render("register-page");
 });
 app.get("/", (req, res) => {
-  res.render("homepage", {
-    heading: "Asansol Vaccine Support",
+  res.render("home-page", {
+    type: null,
+    msg: null,
+  });
+});
+app.get("/error", (req, res) => {
+  res.render("error-page", {
     type: null,
     msg: null,
   });
 });
 app.get("/*", (req, res) => {
-  res.render("errorpage", {
-    heading: "This Page is Not Available",
-    type: null,
-    msg: null,
-  });
+  res.redirect("/error");
 });
 app.listen(port, () => {
   console.log("server started..");
