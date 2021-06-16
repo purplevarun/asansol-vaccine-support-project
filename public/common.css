@@ -6,6 +6,7 @@
   position: absolute;
   width: 100%;
   bottom: 10px;
+  font-weight: 600;
 }
 .msgs {
   width: 400px;
@@ -24,4 +25,5 @@ input {
 }
 input:focus {
   outline: none;
+  border: solid 3px red;
 }
