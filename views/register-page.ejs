@@ -14,7 +14,7 @@
     <style>
       .form-container {
         border: 3px solid black;
-        float: left;
+        /* float: left; */
         padding: 20px;
         border-radius: 10px;
       }
@@ -23,7 +23,7 @@
         float: left;
       }
       .left {
-        width: 550px;
+        /* width: 550px; */
       }
       input {
         border-radius: 10px;
@@ -34,10 +34,10 @@
   <body>
     <h1>Register Page</h1>
     <div class="fifty"></div>
-
+	
     <div class="gap left"></div>
     <div class="form-container">
-      <div style="height: 0px">
+      <div style="height: 70px">
         <div class="<%=type%>"><%= msg %></div>
       </div>
       <form action="/register" method="post">

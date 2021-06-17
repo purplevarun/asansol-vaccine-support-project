@@ -14,7 +14,7 @@
     <style>
       .form-container {
         border: 3px solid black;
-        float: left;
+        /* float: left; */
         padding: 20px;
         border-radius: 10px;
       }
@@ -23,7 +23,8 @@
         float: left;
       }
       .left {
-        width: 560px;
+        /* width: 560px; */
+
       }
       input {
         border-radius: 10px;
@@ -41,11 +42,11 @@
         <div class="<%=type%>"><%= msg %></div>
       </div>
       <form action="/login" method="post">
-        <h2>Enter Email</h2>
-        <h2><input type="text" name="email" /></h2>
-        <br />
+        <h2>Enter Username</h2>
+        <h2><input type="text" name="username" /></h2>
+        <br />	
         <h2>Enter Password</h2>
-        <h2><input type="password" name="pass" /></h2>
+        <h2><input type="password" name="password" /></h2>
         <br /><br />
         <button class="btn btn-lg btn-primary">Login</button>
       </form>
