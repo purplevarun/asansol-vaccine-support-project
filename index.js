@@ -6,6 +6,7 @@ const bodyparser = require("body-parser");
 const multer = require("multer");
 const mongoose = require("mongoose");
 const User = require("./models/User");
+const Centers = require("./models/Centers");
 const passport = require("passport");
 const fs = require("fs");
 const LocalStrategy = require("passport-local").Strategy;
@@ -87,8 +88,8 @@ app.post("/register", upload.single("photo"), (req, res, next) => {
 app.post("/login", (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) return next(err);
-    console.log("user = ", user);
-    console.log("info = ", info);
+    // console.log("user = ", user);
+    // console.log("info = ", info);
     if (!user) {
       flash_type = "alert alert-danger";
       flash_msg = info.message;
@@ -96,8 +97,8 @@ app.post("/login", (req, res, next) => {
     } else {
       req.logIn(user, (err) => {
         if (err) return next(err);
-        flash_type = "alert alert-success";
-        flash_msg = "logged in";
+        // flash_type = "alert alert-success";
+        // flash_msg = "logged in";
         return res.redirect("/user/" + user.username);
       });
     }
@@ -117,8 +118,11 @@ app.get("/user/:username", (req, res) => {
     res.redirect("/user/login");
   } else {
     const { username } = req.params;
-    User.findOne({ username: username }, (err, result) => {
-      res.render("dashboard", { user: result });
+    User.findOne({ username: username }, (err, user) => {
+      Centers.find({}, (err, centers) => {
+        console.log("user=" + user + " centers = " + centers);
+        res.render("dashboard", { user: user, centers: centers });
+      });
     });
   }
 });

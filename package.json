@@ -15,7 +15,8 @@
   "main": "index.js",
   "devDependencies": {},
   "scripts": {
-    "test": "nodemon index.js"
+    "test": "nodemon index.js",
+	"start":"node index.js"
   },
   "repository": {
     "type": "git",
