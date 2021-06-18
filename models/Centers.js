@@ -6,7 +6,7 @@ var centerSchema = new mongoose.Schema({
   contact: String,
   vaccine_name: String,
   photo: {
-    type: Buffer,
+    data: Buffer,
     contentType: String,
   },
   doses: String,

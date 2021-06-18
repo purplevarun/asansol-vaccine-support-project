@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+      crossorigin="anonymous"
+    />
+
+    <title>AVC - Add Vaccine Center</title>
+    <link rel="stylesheet" href="../../common.css" />
+    <style type="text/css">
+      * {
+        text-align: center;
+      }
+      form {
+        border: 3px solid black;
+      }
+      input,
+      select {
+        outline: none;
+        border: 3px solid black;
+        border-radius: 10px;
+      }
+      input:focus,
+      select:focus {
+        outline: none;
+        border: 3px solid blue;
+      }
+      #author {
+        display: none;
+      }
+      span {
+        color: red;
+      }
+      #pic {
+        border-radius: 0px;
+        border: none;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <%=user%> -->
+    <h1>Add a New Vaccination Center</h1>
+    <div class="fifty"></div>
+    <form method="post" action="/addcenter" enctype="multipart/form-data">
+      <h3>Enter Name of Vaccination Center <span>*</span></h3>
+      <h3><input type="text" name="name" required /></h3>
+
+      <br />
+
+      <h3>Enter Address of Vaccination Center <span>*</span></h3>
+      <h3><input type="text" name="address" required /></h3>
+
+      <br />
+
+      <h3>Which Vaccine is being given ? <span>*</span></h3>
+      <h4>
+        <select id="" name="vaccine_name" required>
+          <option value="Covaxin">Covaxin</option>
+          <option value="CovidSheild">CovidSheild</option>
+          <option value="Sputnik">Sputnik</option>
+        </select>
+      </h4>
+
+      <br />
+
+      <h3>Which Dose is available? <span>*</span></h3>
+      <h4>
+        <select name="doses" required>
+          <option value="1st Dose">1st Dose</option>
+          <option value="2nd Dose">2nd Dose</option>
+          <option value="Both Doses">Both Doses</option>
+        </select>
+      </h4>
+
+      <!-- <br /> -->
+
+      <input id="author" type="text" name="by" value="<%=user.username%>" />
+
+      <br />
+
+      <h3>Contact Number <span>*</span></h3>
+      <h3>
+        <input
+          id=""
+          type="number"
+          name="contact"
+		  required
+        />
+      </h3>
+
+      <br />
+
+      <h3>Picture of the front of the Center <span>*</span></h3>
+      <input id="pic" type="file" name="pic" accept="image/*" required/>
+      <br />
+	<div class="fifty"></div>
+      <button type="submit" class="btn btn-lg btn-danger">
+        Submit Information
+      </button>
+    </form>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

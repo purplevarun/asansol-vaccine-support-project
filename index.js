@@ -24,7 +24,7 @@ const storage = multer.diskStorage({
     cb(null, "uploads");
   },
   filename: (req, file, cb) => {
-    cb(null, Date.now() + file.filename);
+    cb(null, Date.now() + file.originalname);
   },
 });
 const upload = multer({ storage: storage });
@@ -43,14 +43,16 @@ passport.deserializeUser(User.deserializeUser());
 // routes
 var flash_type = null;
 var flash_msg = null;
-app.post("/register", upload.single("photo"), (req, res, next) => {
+app.post("/register", upload.single("photo"), (req, res) => {
   var email = req.body.email;
   var pass = req.body.pass;
   var name = req.body.name;
+  console.log("form photo = " + req.body.photo);
   var pic;
+  console.log("req.file=" + req.file);
   if (req.file) pic = req.file.path;
   else pic = "./uploads/default.png";
-
+  console.log("pic = " + pic);
   const newUser = new User({
     email: email,
     username: name,
@@ -114,17 +116,64 @@ app.get("/user/login", (req, res) => {
 app.get("/user/:username", (req, res) => {
   if (!req.isAuthenticated()) {
     flash_type = "alert alert-danger";
-    flash_msg = "You need to login to access that";
+    flash_msg = "You need to login to access that page";
     res.redirect("/user/login");
   } else {
-    const { username } = req.params;
-    User.findOne({ username: username }, (err, user) => {
-      Centers.find({}, (err, centers) => {
-        console.log("user=" + user + " centers = " + centers);
-        res.render("dashboard", { user: user, centers: centers });
+    if (req.user.username !== req.params.username) {
+      flash_type = "alert alert-danger";
+      flash_msg = "You cannot see other user's details";
+      res.redirect("/user/login");
+    } else {
+      const { username } = req.params;
+      User.findOne({ username: username }, (err, user) => {
+        Centers.find({}, (err, centers) => {
+          console.log("user=" + user + " centers = " + centers);
+          res.render("dashboard", { user: user, centers: centers });
+        });
       });
+    }
+  }
+});
+app.get("/user/:username/addCenter", (req, res) => {
+  if (!req.isAuthenticated()) {
+    flash_type = "alert alert-warning";
+    flash_msg = "You need to login to access that page";
+    res.redirect("/user/login");
+  } else {
+    User.findOne({ username: req.params.username }, (err, user) => {
+      res.render("addcenter", { user: user });
     });
   }
+});
+app.post("/addcenter", upload.single("pic"), (req, res) => {
+  var info = req.body;
+  // console.log(info);
+  var center_pic = req.file.path;
+  console.log("vaccine center pic = " + center_pic);
+  const newCenter = new Centers({
+    name: info.name,
+    address: info.address,
+    contact: info.contact,
+    vaccine_name: info.vaccine_name,
+    photo: {
+      data: fs.readFileSync(center_pic),
+      contentType: "image",
+    },
+    doses: info.doses,
+    by: info.by,
+  });
+  newCenter.save((err, result) => {
+    console.log("result = " + result);
+    console.log("error = " + err);
+    if (!result) {
+      console.log("there was error in inserting center");
+      // console.log(err.message);
+      res.redirect("/");
+    } else {
+      console.log("Center inserted successfully!");
+      res.redirect("/user/" + info.by);
+    }
+  });
 });
 app.get("/newUser/register", (req, res) => {
   res.render("register-page", { type: flash_type, msg: flash_msg });
@@ -144,7 +193,7 @@ app.get("/error", (req, res) => {
   });
 });
 app.get("*", (req, res) => {
-  res.redirect("/error");
+  // res.redirect("/error");
 });
 app.listen(port, () => {
   console.log("server started..");
