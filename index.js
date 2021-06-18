@@ -180,6 +180,19 @@ app.get("/newUser/register", (req, res) => {
   flash_type = null;
   flash_msg = null;
 });
+app.get("/viewProfile/:username", (req, res) => {
+  if (!req.isAuthenticated()) {
+    flash_type = "alert alert-warning";
+    flash_msg = "You need to Login to access that page";
+    res.redirect("/user/login");
+  } else {
+    User.findOne({ username: req.params.username }, (err, user) => {
+      Centers.find({}, (err2, Center) => {
+        res.render("view-profile", { user: user, Centers: Center });
+      });
+    });
+  }
+});
 app.get("/", (req, res) => {
   res.render("home-page", {
     type: null,

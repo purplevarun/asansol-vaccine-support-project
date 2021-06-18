@@ -65,7 +65,7 @@
         <ul class="list-group list-group-flush">
           <li class="list-group-item">Vaccine - <%=center.vaccine_name%></li>
           <li class="list-group-item">Doses - <%=center.doses%></li>
-          <li class="list-group-item">by - <%=center.by%></li>
+		  <li class="list-group-item">by - <a href="/viewProfile/<%=center.by%>"><%=center.by%></a></li>
         </ul>
         <div class="card-body">
           <a href="tel:<%=center.contact%>" class="card-link">Contact</a>
