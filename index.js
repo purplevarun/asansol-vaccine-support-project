@@ -21,7 +21,7 @@ mongoose.connect(mongourl, (err) => {
 });
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "uploads");
+    cb(null, "uploads/temp");
   },
   filename: (req, file, cb) => {
     cb(null, Date.now() + file.originalname);
@@ -193,7 +193,7 @@ app.get("/error", (req, res) => {
   });
 });
 app.get("*", (req, res) => {
-  // res.redirect("/error");
+  res.redirect("/error");
 });
 app.listen(port, () => {
   console.log("server started..");
