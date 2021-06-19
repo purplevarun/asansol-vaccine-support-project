@@ -44,8 +44,8 @@
     </style>
   </head>
   <body>
-    <!-- <%=user%> -->
-    <h1>Add a New Vaccination Center</h1>
+    <%-include('navbar');%>
+	<h1>Add a New Vaccination Center</h1>
     <div class="fifty"></div>
     <form method="post" action="/addcenter" enctype="multipart/form-data">
       <h3>Enter Name of Vaccination Center <span>*</span></h3>
@@ -62,7 +62,7 @@
       <h4>
         <select id="" name="vaccine_name" required>
           <option value="Covaxin">Covaxin</option>
-          <option value="CovidSheild">CovidSheild</option>
+          <option value="Covisheild">Covisheild</option>
           <option value="Sputnik">Sputnik</option>
         </select>
       </h4>

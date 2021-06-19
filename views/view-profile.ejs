@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="../../common.css" />
   </head>
   <body>
+    <%-include('navbar');%>
     <h1>Profile of <%=user.username%>(<%=user.email%>)</h1>
     <div class="twenty"></div>
     <img
@@ -22,7 +23,7 @@
       alt=""
       width="100px"
     />
-    <div class="fify"></div>
+    <div class="fifty"></div>
     <h2>Contributions done by <%=user.username%></h2>
     <div class="twenty"></div>
     <%Centers.forEach(center =>{%> <%if (center.by === user.username){%>
