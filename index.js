@@ -11,6 +11,9 @@ const passport = require("passport");
 const fs = require("fs");
 const LocalStrategy = require("passport-local").Strategy;
 const session = require("express-session");
+const Clear = require("./data/Clear.js");
+const mailer = require("nodemailer");
+// Clear(); // Clears all the Database.. DO NOT USE
 // config
 mongoose.set("useUnifiedTopology", true);
 mongoose.set("useNewUrlParser", true);
@@ -86,7 +89,11 @@ app.post("/register", upload.single("photo"), (req, res) => {
     }
   });
 });
-
+app.get ('/guest', (req, res)=>{
+	Centers.find({},(err,center)=>{
+		res.render('guestDashboard', {Center:center});
+	});
+});
 app.post("/login", (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) return next(err);
@@ -183,7 +190,7 @@ app.get("/newUser/register", (req, res) => {
 app.get("/viewProfile/:username", (req, res) => {
   if (!req.isAuthenticated()) {
     flash_type = "alert alert-warning";
-    flash_msg = "You need to Login to access that page";
+    flash_msg = "You need to Login to view other's profile";
     res.redirect("/user/login");
   } else {
     User.findOne({ username: req.params.username }, (err, user) => {
@@ -192,6 +199,10 @@ app.get("/viewProfile/:username", (req, res) => {
       });
     });
   }
+});
+app.get('/logout', (req, res)=>{
+	req.logout();
+	res.redirect('/');
 });
 app.get("/", (req, res) => {
   res.render("home-page", {
