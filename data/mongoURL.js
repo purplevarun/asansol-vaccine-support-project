@@ -1,2 +1,2 @@
 const local = "mongodb://localhost/vaccine-local";
-module.exports = process.env.mongoURL;
+module.exports = process.env.mongoURL || local;
