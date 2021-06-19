@@ -10,49 +10,24 @@
       integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" type="text/css" href="../common.css" />
-    <title>AVS - <%=user.username+"'s "%> Dashboard</title>
-    <style>
-      span {
-        color: black;
-      }
-      * {
-        text-align: center;
-      }
-
-      .allcenters {
-        /* display:flex; */
-      }
-
-      .card-self {
-        margin: 20px;
-      }
-      @media only screen and (min-width: 800px) {
-        .allcenters {
-          display: flex;
-        }
-      }
-    </style>
+    <title></title>
+	<link rel="stylesheet" href="../common.css">
+	<style>
+		.foot{
+			position : absolute;
+			bottom : 10px;
+			color : red;
+			width:100%
+		}
+	</style>
   </head>
   <body>
-    <h1>Welcome, <%= user.username %></h1>
-    <div class="userinfo">
-      <h3>Email : <span><%=user.email%></span></h3>
-      <br />
+	<h1>Welcome, Guest User</h1>
+	<div class="fifty"></div>
+	<h2>List of all Vaccination Centers near you:</h2>
+	<%Center.forEach(center => {%>
 
-      <img
-        src="data:user/<%=user.dp.contentType%>;base64,
-                     <%=user.dp.data.toString('base64')%>"
-        alt=""
-        width="200px"
-      />
-    </div>
-    <div class="twenty"></div>
-    <hr />
-    <h2>Vaccination Centers Near you:</h2>
-    <div class="allcenters">
-      <%centers.forEach(center=>{ %>
-
+		
 	<div class="card card-self mx-auto" style="width: 18rem">
         <img
           class="card-img-top"
@@ -74,14 +49,15 @@
       </div>
       <br />
 
-      <%});%>
-    </div>
-    <br />
-    <div class="newbtn">
-      <a href="/user/<%=user.username%>/addCenter">
-        <button class="btn btn-lg btn-primary">Add New Vaccine Center</button>
-      </a>
-    </div>
+	<%});%>
+	<div class="foot">	
+		<h4>Reminder : You are logged in as Guest and missing out on several features such as adding Vaccine Centers and rating Vaccine Centers</h4>
+		<h4>
+			To Create an Account, 
+			<a href="/newUser/register">Click Here</a>
+
+		</h4>
+	</div>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
