@@ -1,2 +1,2 @@
 # asansol-vaccine-support-project
-## hosted @ https://www.asansol-vaccine-support.herokuapp.com
+## hosted @ http://asansol-vaccine-support.herokuapp.com/
