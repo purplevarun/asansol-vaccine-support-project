@@ -89,10 +89,10 @@ app.post("/register", upload.single("photo"), (req, res) => {
     }
   });
 });
-app.get ('/guest', (req, res)=>{
-	Centers.find({},(err,center)=>{
-		res.render('guestDashboard', {Center:center});
-	});
+app.get("/guest", (req, res) => {
+  Centers.find({}, (err, center) => {
+    res.render("guestDashboard", { Center: center });
+  });
 });
 app.post("/login", (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
@@ -188,21 +188,15 @@ app.get("/newUser/register", (req, res) => {
   flash_msg = null;
 });
 app.get("/viewProfile/:username", (req, res) => {
-  if (!req.isAuthenticated()) {
-    flash_type = "alert alert-warning";
-    flash_msg = "You need to Login to view other's profile";
-    res.redirect("/user/login");
-  } else {
-    User.findOne({ username: req.params.username }, (err, user) => {
-      Centers.find({}, (err2, Center) => {
-        res.render("view-profile", { user: user, Centers: Center });
-      });
+  User.findOne({ username: req.params.username }, (err, user) => {
+    Centers.find({}, (err2, Center) => {
+      res.render("view-profile", { user: user, Centers: Center });
     });
-  }
+  });
 });
-app.get('/logout', (req, res)=>{
-	req.logout();
-	res.redirect('/');
+app.get("/logout", (req, res) => {
+  req.logout();
+  res.redirect("/");
 });
 app.get("/", (req, res) => {
   res.render("home-page", {
