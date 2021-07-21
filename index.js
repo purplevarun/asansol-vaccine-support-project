@@ -9,6 +9,7 @@ const User = require("./models/User");
 const Centers = require("./models/Centers");
 const passport = require("passport");
 const fs = require("fs");
+
 const LocalStrategy = require("passport-local").Strategy;
 const session = require("express-session");
 const Clear = require("./data/Clear.js");
